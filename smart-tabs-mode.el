@@ -192,7 +192,10 @@ simplifies the creation of such a cons cell."
           (py-indent-region . py-indent-offset))))
 
     ,(smart-tabs-create-language-advice ruby ruby-mode-hook
-       ((ruby-indent-line . ruby-indent-level)))
+       ((smie-indent-line . ruby-indent-level)))
+
+    ,(smart-tabs-create-language-advice crystal crystal-mode-hook
+       ((smie-indent-line . crystal-indent-level)))
 
     ,(smart-tabs-create-language-advice nxml nxml-mode-hook
        ((nxml-indent-line . nxml-child-indent))))
@@ -246,7 +249,7 @@ Smarttabs is enabled in mode hook.")
   `(progn
      (defadvice ,function (around smart-tabs activate)
        (cond
-        ((and smart-tabs-mode indent-tabs-mode (eq ,offset tab-width))
+        ((and smart-tabs-mode indent-tabs-mode)
          (save-excursion
            (beginning-of-line)
            (while (looking-at "\t*\\( +\\)\t+")
